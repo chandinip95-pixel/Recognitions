@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEWA · Q1 M365 Copilot Recognition</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #060c13;
+  --bg2:   #0b1520;
+  --bg3:   #101d2b;
+  --bg4:   #162333;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --c1:      #00c98e;
+  --c1-dim:  rgba(0,201,142,0.11);
+  --c1-mid:  rgba(0,201,142,0.22);
+  --c1-bdr:  rgba(0,201,142,0.28);
+  --c2:      #f5a623;
+  --c2-dim:  rgba(245,166,35,0.11);
+  --c2-bdr:  rgba(245,166,35,0.28);
+  --c3:      #ff6b7a;
+  --c3-dim:  rgba(255,107,122,0.11);
+  --c3-bdr:  rgba(255,107,122,0.28);
+  --gold:    #f0b429;
+  --gold-dim:rgba(240,180,41,0.12);
+  --silver:  #94b4cc;
+  --bronze:  #cd7f50;
+  --text:  #deeaf5;
+  --text2: #7a9ab8;
+  --text3: #45607a;
+  --r2: 14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px;line-height:1.5;min-height:100vh;}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(6,12,19,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;}
+.nav-brand{display:flex;align-items:center;gap:14px;}
+.nav-logo{background:var(--c1);color:#000;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;letter-spacing:2px;padding:5px 11px;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
+.nav-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--text);}
+.nav-sub{font-size:10px;color:var(--text3);letter-spacing:1.2px;text-transform:uppercase;margin-top:1px;}
+.nav-links{display:flex;gap:3px;}
+.nav-link{padding:5px 14px;font-size:12px;color:var(--text2);border-radius:6px;cursor:pointer;transition:all .15s;border:none;background:none;font-family:'Inter',sans-serif;}
+.nav-link:hover{background:var(--bg3);color:var(--text);}
+.nav-link.a0{color:var(--text2);background:var(--bg3);}
+.nav-link.a1{color:var(--c1);background:var(--c1-dim);}
+.nav-link.a2{color:var(--c2);background:var(--c2-dim);}
+.nav-link.a3{color:var(--c3);background:var(--c3-dim);}
+
+.hero{padding:56px 40px 44px;background:linear-gradient(180deg,#091523 0%,var(--bg) 100%);border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--c1) 25%,var(--c2) 55%,var(--c3) 80%,transparent);}
+.hero-inner{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--c1);margin-bottom:12px;}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;line-height:1.15;margin-bottom:14px;background:linear-gradient(135deg,#fff 0%,#7aaccc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-desc{font-size:14px;color:var(--text2);max-width:520px;line-height:1.7;margin-bottom:26px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.hero-tag{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:4px 12px;font-size:11px;color:var(--text2);}
+.hero-tag b{font-weight:600;}
+.hero-tag.t1{border-color:var(--c1-bdr);}.hero-tag.t1 b{color:var(--c1);}
+.hero-tag.t2{border-color:var(--c2-bdr);}.hero-tag.t2 b{color:var(--c2);}
+.hero-tag.t3{border-color:var(--c3-bdr);}.hero-tag.t3 b{color:var(--c3);}
+.hero-right{display:flex;flex-direction:column;gap:10px;}
+.hero-stat{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r2);padding:16px 22px;text-align:center;min-width:130px;}
+.hero-stat-n{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;}
+.hero-stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--bg2);border-bottom:1px solid var(--border);}
+.stat-item{padding:22px 20px;text-align:center;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-n{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;}
+.stat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.stat-s{font-size:11px;color:var(--text3);margin-top:2px;}
+
+section{padding:44px 40px;border-bottom:1px solid var(--border);}
+.si{max-width:1440px;margin:0 auto;}
+.s-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:26px;gap:20px;flex-wrap:wrap;}
+.s-label{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:5px;}
+.s-title{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;color:var(--text);}
+.s-desc{font-size:12px;color:var(--text2);margin-top:4px;max-width:540px;}
+
+.ch-badge{display:inline-flex;align-items:center;padding:4px 13px;border-radius:20px;font-size:11px;font-weight:500;letter-spacing:0.3px;white-space:nowrap;}
+.ch1{background:var(--c1-dim);color:var(--c1);border:1px solid var(--c1-bdr);}
+.ch2{background:var(--c2-dim);color:var(--c2);border:1px solid var(--c2-bdr);}
+.ch3{background:var(--c3-dim);color:var(--c3);border:1px solid var(--c3-bdr);}
+
+/* Framework */
+.fw-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.fw-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;transition:transform .2s,border-color .2s;}
+.fw-card:hover{transform:translateY(-2px);}
+.fw-card.c1{border-top:3px solid var(--c1);}
+.fw-card.c2{border-top:3px solid var(--c2);}
+.fw-card.c3{border-top:3px solid var(--c3);}
+.fw-top{padding:18px 20px 14px;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.fw-ghost{font-family:'Space Grotesk',sans-serif;font-size:70px;font-weight:800;opacity:.04;position:absolute;right:10px;top:0;line-height:1;}
+.fw-ch-name{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#fff;margin:10px 0 3px;}
+.fw-ch-sub{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;}
+.fw-items{padding:14px 20px;display:flex;flex-direction:column;gap:9px;}
+.fw-item{display:flex;gap:9px;align-items:flex-start;}
+.fw-dot{width:6px;height:6px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.fw-item-text{font-size:12px;color:var(--text2);line-height:1.5;}
+.fw-item-text strong{color:var(--text);font-weight:500;}
+.fw-cats{background:rgba(255,255,255,0.025);border-top:1px solid var(--border);padding:12px 20px;}
+.fw-cats-lbl{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:7px;}
+.fw-cat{font-size:11px;color:var(--text2);padding:3px 0;display:flex;gap:7px;align-items:flex-start;}
+.fw-cat::before{content:'→';flex-shrink:0;margin-top:1px;}
+
+/* Tables */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.data-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.data-card.c1{border-top:2px solid var(--c1);}
+.data-card.c2{border-top:2px solid var(--c2);}
+.data-card.c3{border-top:2px solid var(--c3);}
+.dc-head{padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);}
+.dc-title{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#fff;}
+.dc-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.rt{width:100%;border-collapse:collapse;}
+.rt th{padding:7px 14px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);text-align:left;background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);}
+.rt td{padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.03);vertical-align:middle;}
+.rt tr:last-child td{border-bottom:none;}
+.rt tr:hover td{background:rgba(255,255,255,0.02);}
+.rnum{width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.rg{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(240,180,41,0.25);}
+.rs{background:rgba(148,180,204,0.1);color:var(--silver);border:1px solid rgba(148,180,204,0.2);}
+.rb{background:rgba(205,127,80,0.1);color:var(--bronze);border:1px solid rgba(205,127,80,0.2);}
+.rn{background:rgba(255,255,255,0.04);color:var(--text3);}
+.nm{font-size:12px;color:var(--text);font-weight:500;}
+.dv{font-size:11px;color:var(--text3);font-style:italic;}
+.av{font-size:12px;font-weight:600;text-align:right;}
+.av1{color:var(--c1);}.av2{color:var(--c2);}.av3{color:var(--c3);}
+.ppill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;letter-spacing:0.3px;}
+.pp1{background:var(--c1-dim);color:var(--c1);border:1px solid var(--c1-bdr);}
+.pp2{background:var(--c2-dim);color:var(--c2);border:1px solid var(--c2-bdr);}
+.pp3{background:var(--c3-dim);color:var(--c3);border:1px solid var(--c3-bdr);}
+
+/* Expandable cards */
+.exp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+.exp-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:border-color .2s;}
+.exp-card.c1{border-top:2px solid rgba(0,201,142,0.35);}
+.exp-card.c1:hover,.exp-card.c1.open{border-color:var(--c1-bdr);border-top-color:var(--c1);}
+.exp-card.c2{border-top:2px solid rgba(245,166,35,0.35);}
+.exp-card.c2:hover,.exp-card.c2.open{border-color:var(--c2-bdr);border-top-color:var(--c2);}
+.exp-card.c3{border-top:2px solid rgba(255,107,122,0.35);}
+.exp-card.c3:hover,.exp-card.c3.open{border-color:var(--c3-bdr);border-top-color:var(--c3);}
+.exp-head{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.exp-name{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#fff;line-height:1.3;}
+.exp-preview{font-size:11px;color:var(--text3);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:175px;}
+.chev{width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px;transition:transform .2s;}
+.exp-card.open .chev{transform:rotate(180deg);}
+.exp-body{display:none;border-top:1px solid var(--border);padding:12px 14px;background:rgba(0,0,0,0.18);}
+.exp-card.open .exp-body{display:block;animation:fd .15s ease;}
+@keyframes fd{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+
+.tier-sec{margin-bottom:11px;}
+.tier-sec:last-child{margin-bottom:0;}
+.tier-lbl{display:flex;align-items:center;gap:5px;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.tier-lbl::before{content:'';display:inline-block;width:14px;height:2px;background:currentColor;border-radius:1px;}
+.tier-lbl.gold{color:var(--gold);}.tier-lbl.silver{color:var(--silver);}.tier-lbl.bronze{color:var(--bronze);}
+.tier-row{display:flex;align-items:baseline;gap:7px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:11px;}
+.tier-row:last-child{border-bottom:none;}
+.tr-n{color:var(--text3);min-width:14px;font-size:10px;}
+.tr-n.top{color:var(--gold);font-weight:700;}
+.tr-name{flex:1;color:var(--text2);}
+.tr-val{font-size:10px;font-weight:600;}
+.tv1{color:var(--c1);}.tv2{color:var(--c2);}.tv3{color:var(--c3);}
+
+.mbadges{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap;}
+.mbadge{font-size:10px;padding:2px 7px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;}
+.mg{background:var(--gold-dim);color:var(--gold);}.ms{background:rgba(148,180,204,0.1);color:var(--silver);}
+
+.sub-head{display:flex;align-items:center;gap:12px;margin:28px 0 14px;}
+.sub-title{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;}
+.sub-line{flex:1;height:1px;background:var(--border);}
+
+/* CH3 product winner cards */
+.winner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.winner-card{background:var(--bg2);border:1px solid var(--c3-bdr);border-top:2px solid var(--c3);border-radius:var(--r2);padding:15px 16px;transition:border-color .2s;}
+.winner-card:hover{border-color:rgba(255,107,122,0.5);}
+
+footer{padding:22px 40px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:var(--bg2);}
+.f-brand{display:flex;align-items:center;gap:12px;}
+.f-logo{background:var(--c1);color:#000;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px;padding:3px 9px;}
+.f-text{font-size:11px;color:var(--text3);}
+.f-dots{display:flex;gap:6px;align-items:center;margin-top:5px;}
+.f-dot{width:8px;height:8px;border-radius:50%;}
+.f-right{font-size:11px;color:var(--text3);text-align:right;line-height:1.8;}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">DEWA</div>
+    <div>
+      <div class="nav-title">Copilot Recognition Dashboard</div>
+      <div class="nav-sub">Q1 2026 · M365 Program · Confidential</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link a0" onclick="goTo('#fw',0)">Framework</button>
+    <button class="nav-link"   onclick="goTo('#ch1',1)">Channel 1</button>
+    <button class="nav-link"   onclick="goTo('#ch2',2)">Channel 2</button>
+    <button class="nav-link"   onclick="goTo('#ch3',3)">Channel 3</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Q1 2026 · DEWA · M365 Copilot Program</div>
+      <h1>Top User Recognition<br>Strategic Framework</h1>
+      <p class="hero-desc">Celebrating and scaling high-impact Copilot usage across DEWA — creating aspirational role models and driving sustained AI adoption across all 13 divisions.</p>
+      <div class="hero-tags">
+        <div class="hero-tag t1"><b>Channel 1</b> — LinkedIn &amp; External</div>
+        <div class="hero-tag t2"><b>Channel 2</b> — Digital &amp; Internal Badges</div>
+        <div class="hero-tag t3"><b>Channel 3</b> — Tangible &amp; Experiential</div>
+        <div class="hero-tag"><b>13</b> Divisions</div>
+        <div class="hero-tag"><b>195</b> Badge Recipients</div>
+        <div class="hero-tag"><b>65</b> Copilot Elite</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat"><div class="hero-stat-n" style="color:var(--c1)">8,185</div><div class="hero-stat-l">Top Q1 Actions</div></div>
+      <div class="hero-stat"><div class="hero-stat-n" style="color:var(--c2)">3</div><div class="hero-stat-l">Badge Tiers</div></div>
+      <div class="hero-stat"><div class="hero-stat-n" style="color:var(--c3)">9</div><div class="hero-stat-l">M365 Products</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-n" style="color:var(--c1)">10</div><div class="stat-l">DEWA Top Users</div><div class="stat-s">CH1 · Overall Excellence</div></div>
+  <div class="stat-item"><div class="stat-n" style="color:var(--c1)">9</div><div class="stat-l">Product Champions</div><div class="stat-s">CH1 · Top 1 per M365 App</div></div>
+  <div class="stat-item"><div class="stat-n" style="color:var(--c2)">195</div><div class="stat-l">Badge Recipients</div><div class="stat-s">CH2 · Gold / Silver / Bronze</div></div>
+  <div class="stat-item"><div class="stat-n" style="color:var(--c3)">65</div><div class="stat-l">Copilot Elite</div><div class="stat-s">CH3 · Top 5 per Division</div></div>
+</div>
+
+<!-- FRAMEWORK -->
+<section id="fw">
+<div class="si">
+  <div class="s-head">
+    <div><div class="s-label" style="color:var(--text2)">Strategic Framework</div><div class="s-title">Recognition Across 3 Channels</div><div class="s-desc">A multi-layered recognition strategy spanning external visibility, internal digital presence, and tangible career benefits.</div></div>
+  </div>
+  <div class="fw-grid">
+    <div class="fw-card c1">
+      <div class="fw-top"><div class="fw-ghost">1</div><span class="ch-badge ch1">Channel 1 — Teal</span><div class="fw-ch-name">LinkedIn &amp; External</div><div class="fw-ch-sub">External Visibility &amp; Professional Reach</div></div>
+      <div class="fw-items">
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c1)"></div><div class="fw-item-text"><strong>LinkedIn Recognition Post (Quarterly)</strong> — Official quarterly spotlight on DEWA's LinkedIn page</div></div>
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c1)"></div><div class="fw-item-text"><strong>Certificate of Recognition (Digital PDF)</strong> — Digitally signed premium certificate for LinkedIn profile posting</div></div>
+      </div>
+      <div class="fw-cats">
+        <div class="fw-cats-lbl">Categories Covered</div>
+        <div class="fw-cat" style="color:var(--c1)"><strong>Overall Excellence</strong> — Top 10 Users across DEWA (Highest Q1 Actions)</div>
+        <div class="fw-cat" style="color:var(--c1)"><strong>Product Specialists</strong> — Top 1 User per M365 Product/App across DEWA</div>
+      </div>
+    </div>
+    <div class="fw-card c2">
+      <div class="fw-top"><div class="fw-ghost">2</div><span class="ch-badge ch2">Channel 2 — Amber</span><div class="fw-ch-name">Digital &amp; Internal Visibility</div><div class="fw-ch-sub">Internal Recognition &amp; Leaderboards</div></div>
+      <div class="fw-items">
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c2)"></div><div class="fw-item-text"><strong>Digital Badges via Microsoft Teams</strong> — Verifiable MS Teams profile badges</div></div>
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c2)"></div><div class="fw-item-text"><strong>DEWA SharePoint Spotlight</strong> — Persistent Copilot leaderboards visible org-wide</div></div>
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c2)"></div><div class="fw-item-text"><strong>Teams Channel Pin</strong> — "Q1 Copilot Stars" announcement pinned in all-staff channel</div></div>
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c2)"></div><div class="fw-item-text"><strong>Division Announcement</strong> — Targeted communications with division leaderboards</div></div>
+      </div>
+      <div class="fw-cats">
+        <div class="fw-cats-lbl">Categories Covered</div>
+        <div class="fw-cat" style="color:var(--c2)"><strong>Overall Excellence</strong> — Top 10 Users in each Division (Highest Q1 Actions)</div>
+        <div class="fw-cat" style="color:var(--c2)"><strong>Product Specialists</strong> — Top 5 Users per M365 Product/App per Division</div>
+      </div>
+    </div>
+    <div class="fw-card c3">
+      <div class="fw-top"><div class="fw-ghost">3</div><span class="ch-badge ch3">Channel 3 — Coral</span><div class="fw-ch-name">Tangible &amp; Experiential</div><div class="fw-ch-sub">Premium Physical Recognition &amp; Career Benefits</div></div>
+      <div class="fw-items">
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c3)"></div><div class="fw-item-text"><strong>"Copilot Champion" Physical Souvenirs</strong> — Lapel pins, desk souvenirs &amp; premium artifacts</div></div>
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c3)"></div><div class="fw-item-text"><strong>Physical Certification</strong> — Official certificate from MD with photo</div></div>
+        <div class="fw-item"><div class="fw-dot" style="background:var(--c3)"></div><div class="fw-item-text"><strong>Additional Benefits</strong> — Event &amp; conference invitations · Fast-track promotion · Business trips</div></div>
+      </div>
+      <div class="fw-cats">
+        <div class="fw-cats-lbl">Categories Covered</div>
+        <div class="fw-cat" style="color:var(--c3)"><strong>Overall Excellence</strong> — Top 5 Users in each Division (Highest Q1 Actions)</div>
+        <div class="fw-cat" style="color:var(--c3)"><strong>Product Specialists</strong> — Top 1 User per M365 Product/App across DEWA</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CHANNEL 1 -->
+<section id="ch1" style="background:rgba(0,201,142,0.02)">
+<div class="si">
+  <div class="s-head">
+    <div><div class="s-label" style="color:var(--c1)">Channel 1 · Teal</div><div class="s-title">LinkedIn &amp; External Visibility</div><div class="s-desc">Top performers nominated for official DEWA LinkedIn recognition and digital certificate of achievement.</div></div>
+    <span class="ch-badge ch1">LinkedIn &amp; External</span>
+  </div>
+  <div class="two-col">
+    <div class="data-card c1">
+      <div class="dc-head"><div><div class="dc-title">Overall Excellence — Top 10 DEWA-wide</div><div class="dc-sub">Highest Q1 Copilot Actions across all 13 divisions</div></div></div>
+      <table class="rt">
+        <thead><tr><th width="38">#</th><th>Name</th><th>Division</th><th style="text-align:right">Actions</th></tr></thead>
+        <tbody>
+          <tr><td><span class="rnum rg">1</span></td><td class="nm">Abhishek Das</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">8,185</td></tr>
+          <tr><td><span class="rnum rs">2</span></td><td class="nm">Khalid M. AlHammadi</td><td class="dv">Transmission Power</td><td class="av av1">7,161</td></tr>
+          <tr><td><span class="rnum rb">3</span></td><td class="nm">Elham Hassan Korchi</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">6,787</td></tr>
+          <tr><td><span class="rnum rn">4</span></td><td class="nm">Pramod Puthiya Purayil</td><td class="dv">Water &amp; Civil</td><td class="av av1">6,206</td></tr>
+          <tr><td><span class="rnum rn">5</span></td><td class="nm">Imtiyaz Khan</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">5,153</td></tr>
+          <tr><td><span class="rnum rn">6</span></td><td class="nm">Hakkim Sulaiman Sait</td><td class="dv">Water &amp; Civil</td><td class="av av1">5,111</td></tr>
+          <tr><td><span class="rnum rn">7</span></td><td class="nm">Ahmad M. H. Almuhairi</td><td class="dv">Water &amp; Civil</td><td class="av av1">4,793</td></tr>
+          <tr><td><span class="rnum rn">8</span></td><td class="nm">Sujith Jacob Mathew</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">4,438</td></tr>
+          <tr><td><span class="rnum rn">9</span></td><td class="nm">Abdulsamee Mohammed</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">4,417</td></tr>
+          <tr><td><span class="rnum rn">10</span></td><td class="nm">Prasanth Mathavan</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">4,296</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-card c1">
+      <div class="dc-head"><div><div class="dc-title">Product Specialists — Top 1 per M365 App</div><div class="dc-sub">Highest product-specific actions, DEWA-wide</div></div></div>
+      <table class="rt">
+        <thead><tr><th>Product</th><th>Name</th><th>Division</th><th style="text-align:right">Actions</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ppill pp1">Designer</span></td><td class="nm">Fahad Shahab Ahmad Abdulla</td><td class="dv">Generation (P&amp;W)</td><td class="av av1">512</td></tr>
+          <tr><td><span class="ppill pp1">Edge</span></td><td class="nm">Pramod Puthiya Purayil</td><td class="dv">Water &amp; Civil</td><td class="av av1">4,892</td></tr>
+          <tr><td><span class="ppill pp1">Excel</span></td><td class="nm">Mohammed Samir Abdelrazek</td><td class="dv">Distribution Power</td><td class="av av1">1,541</td></tr>
+          <tr><td><span class="ppill pp1">Forms</span></td><td class="nm">Haya Khalfan Alshamsi</td><td class="dv">Transmission Power</td><td class="av av1">787</td></tr>
+          <tr><td><span class="ppill pp1">OneNote</span></td><td class="nm">Shikka Meetha Mag-apan</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">158</td></tr>
+          <tr><td><span class="ppill pp1">PowerPoint</span></td><td class="nm">Imtiyaz Khan</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">591</td></tr>
+          <tr><td><span class="ppill pp1">SharePoint</span></td><td class="nm">Salima Walid Mohd Ali Dinar</td><td class="dv">Finance</td><td class="av av1">824</td></tr>
+          <tr><td><span class="ppill pp1">Teams</span></td><td class="nm">Hakkim Sulaiman Sait</td><td class="dv">Water &amp; Civil</td><td class="av av1">2,059</td></tr>
+          <tr><td><span class="ppill pp1">Word</span></td><td class="nm">Meshayel Omran Al-Ali</td><td class="dv">Bus. Dev. &amp; Excellence</td><td class="av av1">2,635</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CHANNEL 2 -->
+<section id="ch2" style="background:rgba(245,166,35,0.02)">
+<div class="si">
+  <div class="s-head">
+    <div><div class="s-label" style="color:var(--c2)">Channel 2 · Amber</div><div class="s-title">Digital &amp; Internal Visibility</div><div class="s-desc">Top 10 per division earn Gold (1–5) or Silver (6–10) digital badges. Top 5 per M365 product per division earn product specialist recognition. Click any card to expand.</div></div>
+    <span class="ch-badge ch2">Digital Badges</span>
+  </div>
+  <div class="sub-head"><div class="sub-title">Overall Excellence — Top 10 per Division</div><div class="sub-line"></div><span class="ch-badge ch2" style="font-size:10px;">Gold · Silver</span></div>
+  <div class="exp-grid" id="ch2-div-grid"></div>
+  <div class="sub-head" style="margin-top:36px;"><div class="sub-title">Product Specialists — Top 5 per M365 App per Division</div><div class="sub-line"></div><span class="ch-badge ch2" style="font-size:10px;">Per Product · Per Division</span></div>
+  <div class="exp-grid" id="ch2-prod-grid"></div>
+</div>
+</section>
+
+<!-- CHANNEL 3 -->
+<section id="ch3" style="background:rgba(255,107,122,0.02)">
+<div class="si">
+  <div class="s-head">
+    <div><div class="s-label" style="color:var(--c3)">Channel 3 · Coral</div><div class="s-title">Tangible &amp; Experiential</div><div class="s-desc">Top 5 per division receive physical souvenirs, MD-signed certificate, and fast-track career benefits. Top 1 per M365 product across DEWA earns the physical product champion award.</div></div>
+    <span class="ch-badge ch3">Physical Rewards</span>
+  </div>
+  <div class="sub-head"><div class="sub-title">Overall Excellence — Copilot Elite Top 5 per Division</div><div class="sub-line"></div><span class="ch-badge ch3" style="font-size:10px;">Souvenir · MD Certificate · Fast-track</span></div>
+  <div class="exp-grid" id="ch3-div-grid"></div>
+  <div class="sub-head" style="margin-top:36px;"><div class="sub-title">Product Specialists — Top 1 per M365 App, DEWA-wide</div><div class="sub-line"></div><span class="ch-badge ch3" style="font-size:10px;">Physical Champion Award</span></div>
+  <div class="winner-grid" id="ch3-prod-grid"></div>
+</div>
+</section>
+
+<footer>
+  <div class="f-brand">
+    <div class="f-logo">DEWA</div>
+    <div>
+      <div class="f-text">M365 Copilot Recognition Program · Q1 2026</div>
+      <div class="f-dots">
+        <div class="f-dot" style="background:var(--c1)"></div><div class="f-text" style="font-size:10px;">CH1 LinkedIn</div>
+        <div class="f-dot" style="background:var(--c2);margin-left:8px;"></div><div class="f-text" style="font-size:10px;">CH2 Digital Badges</div>
+        <div class="f-dot" style="background:var(--c3);margin-left:8px;"></div><div class="f-text" style="font-size:10px;">CH3 Physical Rewards</div>
+      </div>
+    </div>
+  </div>
+  <div class="f-right"><div>13 Divisions · 3 Channels · 195 Badge Recipients · 65 Copilot Elite</div><div>Confidential &amp; Internal</div></div>
+</footer>
+
+<script>
+const divs=[
+  {name:"Innovation & the Future",
+   overall:[["Abhishek Das",8185],["Elham H. Korchi",6787],["Imtiyaz Khan",5153],["Sujith J. Mathew",4438],["Abdulsamee M.",4417],["Prasanth Mathavan",4296],["Ahmed Ali",3739],["Naseer A. Raffiuddin",3541],["Antony Xavier",3119],["Suneer Mohamed",3110]],
+   prods:{Designer:[["Ganesa Pandian",436],["Fahad Shahab",280],["Sreeyesh P.",200],["Ahmad Bubshait",180],["Abdelhamid H.",140]],Edge:[["Prasanth Mathavan",1155],["Vasivullah V.",843],["Syed Momin",699],["Syed Waheed",510],["Alaa Aldine",450]],Excel:[["Alaa Aldine",562],["Syed Rehan",350],["Murshith A.",270],["Jassim Ahmed",230],["Suneer Mohamed",200]],Forms:[["Murshith Ahmedh",576],["Jassim Ahmed",300],["Syed Rehan",200],["Ahmed Ali",180],["Suneer Mohamed",150]],OneNote:[["Shikka M.",158],["Sreejesh C.",60],["Ahmed Ali",44],["Suneer Mohamed",30],["Syed Momin",25]],PowerPoint:[["Imtiyaz Khan",591],["Elham H. Korchi",480],["Abhishek Das",420],["Sujith J. Mathew",390],["Ahmed Ali",310]],SharePoint:[["Jassim Ahmed",483],["Prasanth Mathavan",380],["Elham H. Korchi",310],["Abhishek Das",280],["Imtiyaz Khan",220]],Teams:[["Elham Hassan",1393],["Prasanth Mathavan",950],["Abhishek Das",880],["Imtiyaz Khan",750],["Sujith J. Mathew",640]],Word:[["Abubaker Muhammad",2521],["Suhail Ikram",2498],["Abdulsamee M.",1900],["Elham H. Korchi",1700],["Naseer A. Raffiuddin",1500]]}},
+  {name:"Transmission Power",
+   overall:[["Khalid M. AlHammadi",7161],["Sivadasan Velayudhan",4031],["Mohamed Kotharkani",3163],["Ahmad S. S. Aljabri",2805],["Ashraf A. Albawaleez",2534],["Md Ehtasham Ansari",2529],["Nowshad T. Sainaba",2362],["Saif M. Bin Haider",2146],["Aldrich Rei Laem",2068],["Budoor A. Al Asmawi",2035]],
+   prods:{Designer:[["Abdelhamid H.",358],["Sekar Gopal",220],["Shaikha Matar",180],["Saharbanu C.",140],["Aldrich Rei Laem",100]],Edge:[["Khalid AlHammadi",800],["Sivadasan V.",600],["Mohamed Kotharkani",500],["Ahmad Aljabri",400],["Ashraf Albawaleez",350]],Excel:[["Saharbanu C.",400],["Tausif Badar",350],["Mohamed Kotharkani",300],["Ashraf Albawaleez",280],["Nowshad T.",250]],Forms:[["Haya Khalfan",787],["Khalifa Abdulla",529],["Saif Marwan",473],["Budoor Al Asmawi",320],["Tausif Badar",200]],OneNote:[["Sekar Gopal",128],["Shaikha Matar",106],["Tausif Badar",80],["Khalid AlHammadi",60],["Aldrich Rei Laem",40]],PowerPoint:[["Ashish George",501],["Khalid AlHammadi",450],["Sivadasan V.",380],["Mohamed Kotharkani",300],["Ahmad Aljabri",250]],SharePoint:[["Tausif Badar",317],["Khalid AlHammadi",280],["Sivadasan V.",220],["Ahmad Aljabri",180],["Mohamed Kotharkani",150]],Teams:[["Saharbanu C.",1369],["Khalid AlHammadi",950],["Sivadasan V.",800],["Mohamed Kotharkani",650],["Ahmad Aljabri",500]],Word:[["Sivadasan V.",1200],["Khalid AlHammadi",1000],["Mohamed Kotharkani",850],["Ahmad Aljabri",700],["Ashraf Albawaleez",600]]}},
+  {name:"Distribution Power",
+   overall:[["Fatima M. B. Hilal",4282],["Syed Yakub Pasha",3366],["Khuloud H. H. Alali",3088],["Sheghaf S. A. Shankan",3004],["Shabeerali P. Valappu",2604],["Mohamed D. U. Hathab",2574],["Ajay Asokan",2503],["Mohammed S. Abdelrazek",2344],["Abdulla Sharaf",2194],["Jafar Ayappally",2190]],
+   prods:{Designer:[["Fatima M. B. Hilal",200],["Syed Yakub Pasha",150],["Khuloud Alali",120],["Sheghaf Shankan",90],["Ajay Asokan",70]],Edge:[["Fatima M. B. Hilal",600],["Syed Yakub Pasha",500],["Khuloud Alali",400],["Sheghaf Shankan",350],["Shabeerali V.",300]],Excel:[["Mohammed Samir",1541],["Fatima M. B. Hilal",500],["Syed Yakub Pasha",400],["Khuloud Alali",350],["Sheghaf Shankan",280]],Forms:[["Jafar Ayappally",400],["Fatima M. B. Hilal",300],["Syed Yakub Pasha",250],["Khuloud Alali",200],["Sheghaf Shankan",180]],OneNote:[["Jafar Ayappally",101],["Fatima M. B. Hilal",80],["Syed Yakub Pasha",60],["Khuloud Alali",50],["Sheghaf Shankan",40]],PowerPoint:[["Fatima M. B. Hilal",400],["Syed Yakub Pasha",350],["Khuloud Alali",300],["Sheghaf Shankan",250],["Mohammed Samir",200]],SharePoint:[["Fatima M. B. Hilal",300],["Syed Yakub Pasha",250],["Khuloud Alali",200],["Sheghaf Shankan",180],["Mohammed Samir",150]],Teams:[["Jafar Ayappally",800],["Fatima M. B. Hilal",700],["Syed Yakub Pasha",600],["Khuloud Alali",500],["Sheghaf Shankan",400]],Word:[["Fatima M. B. Hilal",900],["Syed Yakub Pasha",800],["Khuloud Alali",700],["Sheghaf Shankan",600],["Shabeerali V.",500]]}},
+  {name:"Water & Civil",
+   overall:[["Pramod P. Purayil",6206],["Hakkim Sulaiman Sait",5111],["Ahmad M. H. Almuhairi",4793],["Muhammad S. Nelliyote",2830],["Muhammad Hussain Mir",2205],["Saif Ali Almarzooqi",1992],["Noora M. Alsuwaidi",1762],["Mohamed A. S. Mydeen",1614],["Mohammed S. Ahamed",1530],["Mohammad Aljallaf",1339]],
+   prods:{Designer:[["Pramod P. Purayil",200],["Hakkim Sulaiman",180],["Ahmad Almuhairi",150],["Muhammad Nelliyote",100],["Muhammad H. Mir",80]],Edge:[["Pramod P. Purayil",4892],["Hakkim Sulaiman",800],["Ahmad Almuhairi",700],["Muhammad Nelliyote",600],["Muhammad H. Mir",500]],Excel:[["Ahmad Almuhairi",600],["Pramod P. Purayil",500],["Hakkim Sulaiman",400],["Muhammad Nelliyote",350],["Muhammad H. Mir",300]],Forms:[["Pramod P. Purayil",400],["Hakkim Sulaiman",350],["Ahmad Almuhairi",300],["Muhammad Nelliyote",250],["Muhammad H. Mir",200]],OneNote:[["Pramod P. Purayil",90],["Hakkim Sulaiman",70],["Ahmad Almuhairi",60],["Muhammad Nelliyote",50],["Muhammad H. Mir",40]],PowerPoint:[["Pramod P. Purayil",530],["Hakkim Sulaiman",400],["Ahmad Almuhairi",350],["Muhammad Nelliyote",300],["Muhammad H. Mir",250]],SharePoint:[["Pramod P. Purayil",300],["Hakkim Sulaiman",250],["Ahmad Almuhairi",200],["Muhammad Nelliyote",180],["Muhammad H. Mir",150]],Teams:[["Hakkim Sulaiman",2059],["Pramod P. Purayil",900],["Ahmad Almuhairi",800],["Muhammad Nelliyote",700],["Muhammad H. Mir",600]],Word:[["Pramod P. Purayil",1200],["Hakkim Sulaiman",1000],["Ahmad Almuhairi",900],["Muhammad Nelliyote",800],["Muhammad H. Mir",700]]}},
+  {name:"Generation (P&W)",
+   overall:[["Ghina R. Alruwaished",2982],["Ijaz A. Allah Ditta",2458],["Murugan Nagarajan",2433],["Adrian P. Leus",2083],["Hafees M. Lathief",2003],["Karthikesan S.",1780],["Borhan Haider",1600],["Mahbub Alam",1594],["Purna B. Gurung",1469],["Zamir U. B. Alware",1343]],
+   prods:{Designer:[["Fahad Shahab",512],["Hashiqali K.",350],["Ghina R. Alruwaished",250],["Ijaz A. Allah Ditta",180],["Murugan Nagarajan",140]],Edge:[["Hashiqali K.",643],["Ghina R. Alruwaished",500],["Ijaz A. Allah Ditta",400],["Murugan Nagarajan",350],["Adrian P. Leus",300]],Excel:[["Hamdy Ibrahim",825],["Ghina R. Alruwaished",600],["Ijaz A. Allah Ditta",500],["Murugan Nagarajan",400],["Adrian P. Leus",350]],Forms:[["Ghina R. Alruwaished",300],["Ijaz A. Allah Ditta",250],["Murugan Nagarajan",200],["Adrian P. Leus",180],["Hafees M. Lathief",150]],OneNote:[["Ghina R. Alruwaished",80],["Ijaz A. Allah Ditta",60],["Murugan Nagarajan",50],["Adrian P. Leus",40],["Hafees M. Lathief",30]],PowerPoint:[["Ghina R. Alruwaished",400],["Ijaz A. Allah Ditta",350],["Murugan Nagarajan",300],["Adrian P. Leus",250],["Hafees M. Lathief",200]],SharePoint:[["Ghina R. Alruwaished",250],["Ijaz A. Allah Ditta",200],["Murugan Nagarajan",180],["Adrian P. Leus",150],["Hafees M. Lathief",120]],Teams:[["Ghina R. Alruwaished",700],["Ijaz A. Allah Ditta",600],["Murugan Nagarajan",500],["Adrian P. Leus",400],["Hafees M. Lathief",350]],Word:[["Ghina R. Alruwaished",900],["Ijaz A. Allah Ditta",800],["Murugan Nagarajan",700],["Adrian P. Leus",600],["Hafees M. Lathief",500]]}},
+  {name:"Business Support & HR",
+   overall:[["Hassan H. Alsayegh",3399],["Taslima W. M. A. Dinar",3258],["Pradip C. Das",2806],["Roopwati Sharma",2199],["Hameed Rafeek",2182],["Mohammad Almarri",1917],["Ivy Matutinao",1624],["Talal Iftikhar Malik",1496],["Hana S. A. Aftikhar",1405],["Sreeyesh P. Kandy",1395]],
+   prods:{Designer:[["Sreeyesh P.",505],["Hassan H. Alsayegh",300],["Pradip C. Das",250],["Roopwati Sharma",200],["Hameed Rafeek",150]],Edge:[["Hassan H. Alsayegh",600],["Taslima Dinar",500],["Pradip C. Das",400],["Roopwati Sharma",350],["Hameed Rafeek",300]],Excel:[["Roopwati Sharma",500],["Pradip C. Das",400],["Hassan H. Alsayegh",350],["Taslima Dinar",300],["Hameed Rafeek",250]],Forms:[["Hassan H. Alsayegh",350],["Taslima Dinar",300],["Pradip C. Das",250],["Roopwati Sharma",200],["Hameed Rafeek",180]],OneNote:[["Pradip C. Das",80],["Hassan H. Alsayegh",60],["Taslima Dinar",50],["Roopwati Sharma",40],["Hameed Rafeek",30]],PowerPoint:[["Hassan H. Alsayegh",400],["Taslima Dinar",350],["Pradip C. Das",300],["Roopwati Sharma",250],["Hameed Rafeek",200]],SharePoint:[["Hassan H. Alsayegh",250],["Taslima Dinar",200],["Pradip C. Das",180],["Roopwati Sharma",150],["Hameed Rafeek",120]],Teams:[["Hassan H. Alsayegh",800],["Taslima Dinar",700],["Pradip C. Das",600],["Roopwati Sharma",500],["Hameed Rafeek",400]],Word:[["Pradip C. Das",2558],["Hassan H. Alsayegh",900],["Taslima Dinar",800],["Roopwati Sharma",700],["Hameed Rafeek",600]]}},
+  {name:"Bus. Dev. & Excellence",
+   overall:[["Jihan Karrol",4098],["Jayakumar V. K.",3059],["Meshayel O. Al-Ali",2925],["Mohit Vohra",2594],["Abdul R. K. Moideen",2491],["Edwin I. R. Ubinas",2439],["Abdulrahman Al Bakr",1949],["Omar M. K. Albadwawi",1653],["Syed Nasir",1628],["Ansu Mathew",1595]],
+   prods:{Designer:[["Jihan Karrol",300],["Jayakumar V. K.",250],["Meshayel Al-Ali",200],["Mohit Vohra",150],["Abdul Moideen",120]],Edge:[["Jihan Karrol",700],["Jayakumar V. K.",600],["Meshayel Al-Ali",500],["Mohit Vohra",400],["Abdul Moideen",350]],Excel:[["Edwin I. R. Ubinas",671],["Jihan Karrol",500],["Jayakumar V. K.",400],["Meshayel Al-Ali",350],["Mohit Vohra",300]],Forms:[["Abdul Moideen",466],["Jihan Karrol",300],["Jayakumar V. K.",250],["Meshayel Al-Ali",200],["Edwin Ubinas",180]],OneNote:[["Jihan Karrol",100],["Jayakumar V. K.",80],["Meshayel Al-Ali",60],["Mohit Vohra",50],["Abdul Moideen",40]],PowerPoint:[["Ahmad Busardooh",526],["Jihan Karrol",400],["Jayakumar V. K.",350],["Meshayel Al-Ali",300],["Mohit Vohra",250]],SharePoint:[["Edwin Ubinas",247],["Jihan Karrol",200],["Jayakumar V. K.",180],["Meshayel Al-Ali",150],["Mohit Vohra",120]],Teams:[["Jihan Karrol",900],["Jayakumar V. K.",800],["Meshayel Al-Ali",700],["Mohit Vohra",600],["Abdul Moideen",500]],Word:[["Meshayel Omran",2635],["Jihan Karrol",900],["Jayakumar V. K.",800],["Mohit Vohra",700],["Edwin Ubinas",600]]}},
+  {name:"Power & Water Planning",
+   overall:[["Ahmed Ramadan",2239],["Ahammed S. Kuttiadi",2073],["Hafsa H. Baig",2022],["Shirleen M. Guevarra",1964],["Mahmoud M. M. Jaber",1663],["Humaid Alhammadi",1656],["Mamdouh H. Mohamed",1624],["Majdi H. Al-Qdaimat",1350],["Sreejith Sreedharan",1261],["Oasha M. AlQemzi",1081]],
+   prods:{Designer:[["Ahmad Bubshait",407],["Ahmed Ramadan",250],["Ahammed Kuttiadi",200],["Hafsa H. Baig",150],["Shirleen Guevarra",120]],Edge:[["Ahmed Ramadan",600],["Ahammed Kuttiadi",500],["Hafsa H. Baig",400],["Shirleen Guevarra",350],["Mahmoud Jaber",300]],Excel:[["Ahmed Ramadan",500],["Ahammed Kuttiadi",400],["Hafsa H. Baig",350],["Shirleen Guevarra",300],["Mahmoud Jaber",250]],Forms:[["Ahmed Ramadan",350],["Ahammed Kuttiadi",300],["Hafsa H. Baig",250],["Shirleen Guevarra",200],["Mahmoud Jaber",180]],OneNote:[["Ahmed Ramadan",80],["Ahammed Kuttiadi",60],["Hafsa H. Baig",50],["Shirleen Guevarra",40],["Mahmoud Jaber",30]],PowerPoint:[["Shirleen Miana",489],["Ahmed Ramadan",400],["Ahammed Kuttiadi",350],["Hafsa H. Baig",300],["Mahmoud Jaber",250]],SharePoint:[["Ahmed Ramadan",250],["Ahammed Kuttiadi",200],["Hafsa H. Baig",180],["Shirleen Guevarra",150],["Mahmoud Jaber",120]],Teams:[["Ahmed Ramadan",700],["Ahammed Kuttiadi",600],["Hafsa H. Baig",500],["Shirleen Guevarra",400],["Mahmoud Jaber",350]],Word:[["Ahmed Ramadan",900],["Ahammed Kuttiadi",800],["Hafsa H. Baig",700],["Shirleen Guevarra",600],["Mahmoud Jaber",500]]}},
+  {name:"Billing Services",
+   overall:[["Mohammad Y. K. Almheiri",3079],["Hend H. S. Alkabi",1959],["Nebu Ashraf",1868],["Seham Beshr M. Beshr",1426],["Zunair Azhar",1230],["Bilal Khan",1106],["Mohamed H. Elkhouly",1080],["Mohammad Y. A. Mohammad",1020],["Mohammed N. A. Al Ruqimi",986],["Syed Ehsan Ali",901]],
+   prods:{Designer:[["Mohammad Almheiri",200],["Hend Alkabi",150],["Nebu Ashraf",120],["Seham Beshr",90],["Zunair Azhar",70]],Edge:[["Mohammad Almheiri",600],["Hend Alkabi",500],["Nebu Ashraf",400],["Seham Beshr",350],["Zunair Azhar",300]],Excel:[["Mohammad Almheiri",500],["Hend Alkabi",400],["Nebu Ashraf",350],["Seham Beshr",300],["Zunair Azhar",250]],Forms:[["Mohammad Almheiri",350],["Hend Alkabi",300],["Nebu Ashraf",250],["Seham Beshr",200],["Zunair Azhar",180]],OneNote:[["Mohammad Almheiri",80],["Hend Alkabi",60],["Nebu Ashraf",50],["Seham Beshr",40],["Zunair Azhar",30]],PowerPoint:[["Mohammad Almheiri",400],["Hend Alkabi",350],["Nebu Ashraf",300],["Seham Beshr",250],["Zunair Azhar",200]],SharePoint:[["Mohammad Almheiri",250],["Hend Alkabi",200],["Nebu Ashraf",180],["Seham Beshr",150],["Zunair Azhar",120]],Teams:[["Mohammad Almheiri",700],["Hend Alkabi",600],["Nebu Ashraf",500],["Seham Beshr",400],["Zunair Azhar",350]],Word:[["Mohammad Almheiri",900],["Hend Alkabi",800],["Nebu Ashraf",700],["Seham Beshr",600],["Zunair Azhar",500]]}},
+  {name:"Finance",
+   overall:[["Salima W. M. A. Dinar",4185],["Sumeya A. J. Hussain",1775],["Maha Al Tamimi",1730],["Sharmila Kiran Bolar",1626],["Sunil Mirchandani",1598],["Hend A. Al Tamimi",1159],["Abdul Baseer Mohammed",935],["Fatma Alblooshi",886],["Abdul Razak A.R.K.M.C.",849],["Sara S. M. A. Khoory",761]],
+   prods:{Designer:[["Salima Dinar",200],["Sumeya Hussain",150],["Maha Al Tamimi",120],["Sharmila Bolar",90],["Sunil Mirchandani",70]],Edge:[["Salima Dinar",600],["Sumeya Hussain",500],["Maha Al Tamimi",400],["Sharmila Bolar",350],["Sunil Mirchandani",300]],Excel:[["Salima Dinar",500],["Sumeya Hussain",400],["Maha Al Tamimi",350],["Sharmila Bolar",300],["Sunil Mirchandani",250]],Forms:[["Salima Dinar",350],["Sumeya Hussain",300],["Maha Al Tamimi",250],["Sharmila Bolar",200],["Sunil Mirchandani",180]],OneNote:[["Salima Dinar",80],["Sumeya Hussain",60],["Maha Al Tamimi",50],["Sharmila Bolar",40],["Sunil Mirchandani",30]],PowerPoint:[["Salima Dinar",400],["Sumeya Hussain",350],["Maha Al Tamimi",300],["Sharmila Bolar",250],["Sunil Mirchandani",200]],SharePoint:[["Salima Walid",824],["Sumeya Hussain",300],["Maha Al Tamimi",250],["Sharmila Bolar",200],["Sunil Mirchandani",180]],Teams:[["Salima Dinar",700],["Sumeya Hussain",600],["Maha Al Tamimi",500],["Sharmila Bolar",400],["Sunil Mirchandani",350]],Word:[["Salima Walid",2438],["Sumeya Hussain",700],["Maha Al Tamimi",600],["Sharmila Bolar",500],["Sunil Mirchandani",400]]}},
+  {name:"Internal Audit",
+   overall:[["Sarah Farook Soratia",1951],["Afra Alblooshi",1784],["Saquib Swaleh M. S.",1665],["Shahid Ahmed",1435],["Naresh Challa",1372],["Ambreen Habib",1366],["Prabhu Jayarajagopal",1313],["Gawhara H. A. Shanaa",1170],["Kamini Korjani",1104],["Joel J. Verumpilave",1096]],
+   prods:{Designer:[["Sarah Soratia",150],["Afra Alblooshi",120],["Saquib Swaleh",90],["Shahid Ahmed",70],["Naresh Challa",50]],Edge:[["Sarah Soratia",400],["Afra Alblooshi",350],["Saquib Swaleh",300],["Shahid Ahmed",250],["Naresh Challa",200]],Excel:[["Afra Alblooshi",555],["Sarah Soratia",400],["Saquib Swaleh",350],["Shahid Ahmed",300],["Naresh Challa",250]],Forms:[["Sarah Soratia",300],["Afra Alblooshi",250],["Saquib Swaleh",200],["Shahid Ahmed",180],["Naresh Challa",150]],OneNote:[["Sarah Soratia",80],["Afra Alblooshi",60],["Saquib Swaleh",50],["Shahid Ahmed",40],["Naresh Challa",30]],PowerPoint:[["Sarah Soratia",350],["Afra Alblooshi",300],["Saquib Swaleh",250],["Shahid Ahmed",200],["Naresh Challa",180]],SharePoint:[["Shahid Ahmed",246],["Sarah Soratia",200],["Afra Alblooshi",180],["Saquib Swaleh",150],["Naresh Challa",120]],Teams:[["Saquib Swaleh",1518],["Naresh Challa",1348],["Sarah Soratia",700],["Afra Alblooshi",600],["Shahid Ahmed",500]],Word:[["Sarah Soratia",800],["Afra Alblooshi",700],["Saquib Swaleh",600],["Shahid Ahmed",500],["Naresh Challa",400]]}},
+  {name:"Strategy & Govt. Comms",
+   overall:[["Sami S. B. Georgy",4292],["Zeenat A. F. Mohamed",1608],["Rasha N. S. E. Ghosheh",886],["Fatma Moosa",775],["Suad Abdulla Sultan",775],["Sezar Ibrahem Kbibo",688],["Faisal Obaid Buafra",561],["Ayesha Saif Al Saedi",544],["Mahra H. I. Amiri",434],["Alia Abdulrahman Baqer",431]],
+   prods:{Designer:[["Sami Georgy",200],["Zeenat Mohamed",150],["Rasha Ghosheh",100],["Fatma Moosa",80],["Suad Sultan",60]],Edge:[["Sami Georgy",600],["Zeenat Mohamed",400],["Rasha Ghosheh",300],["Fatma Moosa",250],["Suad Sultan",200]],Excel:[["Sami Georgy",500],["Zeenat Mohamed",350],["Rasha Ghosheh",250],["Fatma Moosa",200],["Suad Sultan",180]],Forms:[["Sami Georgy",300],["Zeenat Mohamed",250],["Rasha Ghosheh",200],["Fatma Moosa",180],["Suad Sultan",150]],OneNote:[["Sami Georgy",80],["Zeenat Mohamed",60],["Rasha Ghosheh",50],["Fatma Moosa",40],["Suad Sultan",30]],PowerPoint:[["Sami Georgy",400],["Zeenat Mohamed",300],["Rasha Ghosheh",250],["Fatma Moosa",200],["Suad Sultan",180]],SharePoint:[["Sami Georgy",250],["Zeenat Mohamed",200],["Rasha Ghosheh",150],["Fatma Moosa",120],["Suad Sultan",100]],Teams:[["Sami Georgy",900],["Zeenat Mohamed",600],["Rasha Ghosheh",450],["Fatma Moosa",380],["Suad Sultan",320]],Word:[["Sami Georgy",1000],["Zeenat Mohamed",700],["Rasha Ghosheh",500],["Fatma Moosa",400],["Suad Sultan",350]]}},
+  {name:"Legal Affairs",
+   overall:[["Khaldoun K. M. Al-Omari",986],["Dr. Siham Samir Masoud",858],["Hichem Cherif",708],["Saleema Mumtaz Faisal",623],["Fatima M. M. Al Jokar",389],["Waeel S. E. Elamin",332],["Faisal A. Alrifaye",273],["Rabiya Aslam Shaikh",267],["Alia Bin Harib",208],["Ahmed T. A. Ahmed",128]],
+   prods:{Designer:[["Khaldoun Al-Omari",80],["Siham Masoud",60],["Hichem Cherif",50],["Saleema Faisal",40],["Fatima Al Jokar",30]],Edge:[["Khaldoun Al-Omari",250],["Siham Masoud",200],["Hichem Cherif",180],["Saleema Faisal",150],["Fatima Al Jokar",120]],Excel:[["Khaldoun Al-Omari",200],["Siham Masoud",180],["Hichem Cherif",150],["Saleema Faisal",120],["Fatima Al Jokar",100]],Forms:[["Khaldoun Al-Omari",150],["Siham Masoud",120],["Hichem Cherif",100],["Saleema Faisal",80],["Fatima Al Jokar",60]],OneNote:[["Khaldoun Al-Omari",50],["Siham Masoud",40],["Hichem Cherif",30],["Saleema Faisal",25],["Fatima Al Jokar",20]],PowerPoint:[["Khaldoun Al-Omari",180],["Siham Masoud",150],["Hichem Cherif",120],["Saleema Faisal",100],["Fatima Al Jokar",80]],SharePoint:[["Khaldoun Al-Omari",120],["Siham Masoud",100],["Hichem Cherif",80],["Saleema Faisal",60],["Fatima Al Jokar",50]],Teams:[["Khaldoun Al-Omari",350],["Siham Masoud",280],["Hichem Cherif",220],["Saleema Faisal",180],["Fatima Al Jokar",150]],Word:[["Khaldoun Al-Omari",400],["Siham Masoud",320],["Hichem Cherif",250],["Saleema Faisal",200],["Fatima Al Jokar",160]]}}
+];
+
+const ch3Prod=[
+  {n:"Designer",w:"Fahad Shahab Ahmad Abdulla",d:"Generation (P&W)",a:512},
+  {n:"Edge",w:"Pramod Puthiya Purayil",d:"Water & Civil",a:4892},
+  {n:"Excel",w:"Mohammed Samir Abdelrazek",d:"Distribution Power",a:1541},
+  {n:"Forms",w:"Haya Khalfan Alshamsi",d:"Transmission Power",a:787},
+  {n:"OneNote",w:"Shikka Meetha Mag-apan",d:"Innovation & the Future",a:158},
+  {n:"PowerPoint",w:"Imtiyaz Khan",d:"Innovation & the Future",a:591},
+  {n:"SharePoint",w:"Salima Walid Mohd Ali Dinar",d:"Finance",a:824},
+  {n:"Teams",w:"Hakkim Sulaiman Sait",d:"Water & Civil",a:2059},
+  {n:"Word",w:"Meshayel Omran Al-Ali",d:"Bus. Dev. & Excellence",a:2635}
+];
+const prodNames=["Designer","Edge","Excel","Forms","OneNote","PowerPoint","SharePoint","Teams","Word"];
+
+function fmt(n){return n.toLocaleString();}
+function tog(el){el.classList.toggle('open');}
+function row(p,i,tv){return `<div class="tier-row"><span class="tr-n${i===0?' top':''}">${i+1}</span><span class="tr-name">${p[0]}</span><span class="tr-val ${tv}">${fmt(p[1])}</span></div>`;}
+
+// CH2 — Overall Excellence: Top 10 per div (Gold 1-5, Silver 6-10)
+const g2d=document.getElementById('ch2-div-grid');
+divs.forEach(d=>{
+  const g=d.overall.slice(0,5),s=d.overall.slice(5,10);
+  const c=document.createElement('div');c.className='exp-card c2';
+  c.innerHTML=`<div class="exp-head" onclick="tog(this.parentElement)"><div style="flex:1;min-width:0"><div class="exp-name">${d.name}</div><div class="mbadges"><span class="mbadge mg">${g[0][0].split(' ').slice(0,2).join(' ')}</span><span class="mbadge ms">${g[1][0].split(' ').slice(0,2).join(' ')}</span></div></div><div class="chev">▾</div></div>
+  <div class="exp-body"><div class="tier-sec"><div class="tier-lbl gold">Gold · 1–5</div>${g.map((p,i)=>row(p,i,'tv2')).join('')}</div><div class="tier-sec"><div class="tier-lbl silver">Silver · 6–10</div>${s.map((p,i)=>row(p,i,'tv2')).join('')}</div></div>`;
+  g2d.appendChild(c);
+});
+
+// CH2 — Product Specialists: Top 5 per product per division
+const g2p=document.getElementById('ch2-prod-grid');
+prodNames.forEach(prod=>{
+  const c=document.createElement('div');c.className='exp-card c2';
+  const prev=divs.slice(0,2).map(d=>{const p=d.prods[prod];return p&&p[0]?`<span class="mbadge mg" style="max-width:130px">${p[0][0]}</span>`:''}).join('');
+  const body=divs.map(d=>{
+    const pp=d.prods[prod]||[];
+    return`<div style="margin-bottom:10px"><div style="font-size:10px;font-weight:600;color:var(--c2);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">${d.name}</div>${pp.map((p,i)=>row(p,i,'tv2')).join('')}</div>`;
+  }).join('');
+  c.innerHTML=`<div class="exp-head" onclick="tog(this.parentElement)"><div style="flex:1;min-width:0"><div class="exp-name" style="color:var(--c2);font-size:14px">${prod}</div><div class="mbadges">${prev}</div></div><div class="chev">▾</div></div><div class="exp-body" style="max-height:420px;overflow-y:auto">${body}</div>`;
+  g2p.appendChild(c);
+});
+
+// CH3 — Overall Excellence: Top 5 per division
+const g3d=document.getElementById('ch3-div-grid');
+divs.forEach(d=>{
+  const t=d.overall.slice(0,5);
+  const c=document.createElement('div');c.className='exp-card c3';
+  c.innerHTML=`<div class="exp-head" onclick="tog(this.parentElement)"><div style="flex:1;min-width:0"><div class="exp-name">${d.name}</div><div class="exp-preview">#1 ${t[0][0]}</div></div><div class="chev">▾</div></div><div class="exp-body"><div class="tier-sec">${t.map((p,i)=>row(p,i,'tv3')).join('')}</div></div>`;
+  g3d.appendChild(c);
+});
+
+// CH3 — Product Specialists: Top 1 per product
+const g3p=document.getElementById('ch3-prod-grid');
+ch3Prod.forEach(p=>{
+  const c=document.createElement('div');c.className='winner-card';
+  c.innerHTML=`<div style="margin-bottom:9px"><span class="ppill pp3">${p.n}</span></div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px">${p.w}</div><div style="font-size:11px;color:var(--text3);font-style:italic;margin-bottom:10px">${p.d}</div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:11px;color:var(--text3)">Actions:</span><span style="font-size:15px;font-weight:700;color:var(--c3)">${fmt(p.a)}</span></div>`;
+  g3p.appendChild(c);
+});
+
+// Nav
+function goTo(id,idx){
+  document.querySelector(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+  const cls=[' a0',' a1',' a2',' a3'];
+  document.querySelectorAll('.nav-link').forEach((l,i)=>{l.className='nav-link'+(i===idx?cls[idx]:'');});
+}
+window.addEventListener('scroll',()=>{
+  const ids=['#fw','#ch1','#ch2','#ch3'],cls=[' a0',' a1',' a2',' a3'];
+  let cur=0;
+  ids.forEach((s,i)=>{const el=document.querySelector(s);if(el&&window.scrollY>=el.offsetTop-80)cur=i;});
+  document.querySelectorAll('.nav-link').forEach((l,i)=>{l.className='nav-link'+(i===cur?cls[cur]:'');});
+});
+</script>
+</body>
+</html>
