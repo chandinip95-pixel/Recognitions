@@ -39,7 +39,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-
 nav{position:sticky;top:0;z-index:100;background:rgba(6,12,19,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;}
 .nav-brand{display:flex;align-items:center;gap:14px;}
 .nav-logo{background:var(--c1);color:#000;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;letter-spacing:2px;padding:5px 11px;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px));}
-.nav-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--text);}
+.nav-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;}
 .nav-sub{font-size:10px;color:var(--text3);letter-spacing:1.2px;text-transform:uppercase;margin-top:1px;}
 .nav-links{display:flex;gap:3px;}
 .nav-link{padding:5px 14px;font-size:12px;color:var(--text2);border-radius:6px;cursor:pointer;transition:all .15s;border:none;background:none;font-family:'Inter',sans-serif;}
@@ -186,6 +186,84 @@ footer{padding:22px 40px;display:flex;align-items:center;justify-content:space-b
 .f-dot{width:8px;height:8px;border-radius:50%;}
 .f-right{font-size:11px;color:var(--text3);text-align:right;line-height:1.8;}
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
+
+/* ── MOBILE RESPONSIVE ── */
+@media(max-width:768px){
+  /* Nav */
+  nav{padding:0 16px;height:auto;min-height:56px;flex-wrap:wrap;gap:8px;padding-top:10px;padding-bottom:10px;}
+  .nav-sub{display:none;}
+  .nav-title{font-size:12px;}
+  .nav-links{width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding-bottom:6px;}
+  .nav-link{padding:6px 4px;font-size:11px;text-align:center;}
+
+  /* Hero */
+  .hero{padding:32px 16px 28px;}
+  .hero-inner{grid-template-columns:1fr;gap:24px;}
+  .hero h1{font-size:24px;}
+  .hero-desc{font-size:13px;max-width:100%;}
+  .hero-right{flex-direction:row;flex-wrap:wrap;justify-content:flex-start;}
+  .hero-stat{min-width:calc(33% - 8px);padding:12px 10px;}
+  .hero-stat-n{font-size:22px;}
+  .hero-stat-l{font-size:9px;}
+
+  /* Stats bar */
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .stat-item{padding:14px 12px;border-bottom:1px solid var(--border);}
+  .stat-item:nth-child(2){border-right:none;}
+  .stat-n{font-size:20px;}
+  .stat-s{font-size:10px;}
+
+  /* Sections */
+  section{padding:28px 16px;}
+  .s-head{flex-direction:column;align-items:flex-start;gap:10px;}
+  .s-title{font-size:18px;}
+
+  /* Framework grid: stack on mobile */
+  .fw-grid{grid-template-columns:1fr;}
+  .fw-ch-name{font-size:15px;}
+
+  /* Two-col tables: stack */
+  .two-col{grid-template-columns:1fr;}
+
+  /* Tables: hide division column on small screens, allow horizontal scroll */
+  .rt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .rt{min-width:340px;}
+  .rt th,.rt td{padding:7px 10px;}
+  .dv{display:none;}
+  .nm{font-size:11px;}
+  .av{font-size:11px;}
+  .ppill{font-size:9px;padding:2px 6px;}
+
+  /* Expandable cards: 1 column on small, 2 on medium */
+  .exp-grid{grid-template-columns:1fr;}
+  .winner-grid{grid-template-columns:1fr;}
+
+  /* Sub-head: allow title wrap */
+  .sub-head{flex-wrap:wrap;gap:8px;}
+  .sub-title{white-space:normal;font-size:13px;}
+  .sub-line{display:none;}
+
+  /* Footer */
+  footer{flex-direction:column;align-items:flex-start;gap:12px;padding:20px 16px;}
+  .f-right{text-align:left;}
+  .f-dots{flex-wrap:wrap;}
+
+  /* Exp preview max-width fix */
+  .exp-preview{max-width:calc(100vw - 80px);}
+}
+
+@media(min-width:480px) and (max-width:768px){
+  .exp-grid{grid-template-columns:repeat(2,1fr);}
+  .winner-grid{grid-template-columns:repeat(2,1fr);}
+  .hero-stat{min-width:calc(33% - 8px);}
+}
+
+@media(max-width:400px){
+  .hero h1{font-size:20px;}
+  .stats-bar{grid-template-columns:1fr;}
+  .stat-item{border-right:none!important;}
+  .nav-link{font-size:10px;padding:5px 2px;}
+}
 </style>
 </head>
 <body>
@@ -296,7 +374,7 @@ footer{padding:22px 40px;display:flex;align-items:center;justify-content:space-b
   <div class="two-col">
     <div class="data-card c1">
       <div class="dc-head"><div><div class="dc-title">Overall Excellence — Top 10 DEWA-wide</div><div class="dc-sub">Highest Q1 Copilot Actions across all 13 divisions</div></div></div>
-      <table class="rt">
+      <div class="rt-wrap"><table class="rt">
         <thead><tr><th width="38">#</th><th>Name</th><th>Division</th><th style="text-align:right">Actions</th></tr></thead>
         <tbody>
           <tr><td><span class="rnum rg">1</span></td><td class="nm">Abhishek Das</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">8,185</td></tr>
@@ -310,11 +388,11 @@ footer{padding:22px 40px;display:flex;align-items:center;justify-content:space-b
           <tr><td><span class="rnum rn">9</span></td><td class="nm">Abdulsamee Mohammed</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">4,417</td></tr>
           <tr><td><span class="rnum rn">10</span></td><td class="nm">Prasanth Mathavan</td><td class="dv">Innovation &amp; the Future</td><td class="av av1">4,296</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
     <div class="data-card c1">
       <div class="dc-head"><div><div class="dc-title">Product Specialists — Top 1 per M365 App</div><div class="dc-sub">Highest product-specific actions, DEWA-wide</div></div></div>
-      <table class="rt">
+      <div class="rt-wrap"><table class="rt">
         <thead><tr><th>Product</th><th>Name</th><th>Division</th><th style="text-align:right">Actions</th></tr></thead>
         <tbody>
           <tr><td><span class="ppill pp1">Designer</span></td><td class="nm">Fahad Shahab Ahmad Abdulla</td><td class="dv">Generation (P&amp;W)</td><td class="av av1">512</td></tr>
@@ -327,7 +405,7 @@ footer{padding:22px 40px;display:flex;align-items:center;justify-content:space-b
           <tr><td><span class="ppill pp1">Teams</span></td><td class="nm">Hakkim Sulaiman Sait</td><td class="dv">Water &amp; Civil</td><td class="av av1">2,059</td></tr>
           <tr><td><span class="ppill pp1">Word</span></td><td class="nm">Meshayel Omran Al-Ali</td><td class="dv">Bus. Dev. &amp; Excellence</td><td class="av av1">2,635</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
   </div>
 </div>
